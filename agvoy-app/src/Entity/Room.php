@@ -63,6 +63,7 @@ class Room
     {
         $this->regions = new ArrayCollection();
     }
+    
 
     public function getId(): ?int
     {

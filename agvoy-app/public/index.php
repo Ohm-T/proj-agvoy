@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 use App\Kernel;
 use Symfony\Component\ErrorHandler\Debug;
@@ -25,3 +25,13 @@ $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);
+
+$request = Request::createFromGlobals();
+
+error_log('debut '. $request->getRequestUri());
+
+$response = $kernel->handle($request);
+$response->send();
+$kernel->terminate($request, $response);
+
+error_log('fin '. $request->getRequestUri());

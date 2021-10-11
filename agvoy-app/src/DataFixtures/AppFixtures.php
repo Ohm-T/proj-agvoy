@@ -17,7 +17,7 @@ class AppFixtures extends Fixture
     public const AQU_REGION_REFERENCE = 'aqu-region';
 
 
-    /*
+    
     public function load(ObjectManager $manager)
     {
         $region = new Region();
@@ -25,7 +25,6 @@ class AppFixtures extends Fixture
         $region->setName("Ile de France");
         $region->setPresentation("La région française capitale");
         $manager->persist($region);
-        $manager->flush();
         // Une fois l'instance de Region sauvée en base de données,
         // elle dispose d'un identifiant généré par Doctrine, et peut
         // donc être sauvegardée comme future référence.
@@ -38,7 +37,6 @@ class AppFixtures extends Fixture
         $region->setName("Auvergne Rhone-Alpes");
         $region->setPresentation("La région française la plus belle");
         $manager->persist($region);
-        $manager->flush();
         $this->addReference(self::ARA_REGION_REFERENCE, $region);
 
     
@@ -47,7 +45,6 @@ class AppFixtures extends Fixture
         $region->setName("Aquitaine");
         $region->setPresentation("La région française du surf");
         $manager->persist($region);
-        $manager->flush();
         $this->addReference(self::AQU_REGION_REFERENCE, $region);
 
 
@@ -58,53 +55,15 @@ class AppFixtures extends Fixture
         // On peut plutôt faire une référence explicite à la référence
         // enregistrée précédamment, ce qui permet d'éviter de se
         // tromper d'instance de Region :
-        $room->addRegion($this->getReference(self::IDF_REGION_REFERENCE));     
+        $room->addRegion($this->getReference(self::IDF_REGION_REFERENCE));   
+        $room->setCapacity(16);
+        $room->setSuperficy(116);
+        $room->setPrice(160);
+        $room->setAddress('3 Rue Fourier');
+        $room->setCapacity(16);
         $manager->persist($room);
     
         $manager->flush();
     }
-    */
-
-    private static function regionGenerator()
-    {
-        yield ["FR", "Auvergne Rhone-Alpes", "La région française capitale", ARA_REGION_REFERENCE];
-        yield ["FR", "Ile de France", "La région française la plus belle", IDF_REGION_REFERENCE];
-        yield ["FR", "Aquitaine", "La région française du surf", AQU_REGION_REFERENCE];
-
-    }
-
-    private static function roomGenerator()
-    {
-        yield ["Patrick", ARA_REGION_REFERENCE, "très joli espace sur paille", "Beau poulailler ancien à Évry"];
-        yield ["Joel", IDF_REGION_REFERENCE,"très moche espace sur paille", "Vieux poulailler ancien à Évry"];
-        yield ["Fred", AQU_REGION_REFERENCE,"Espace en montagne", "Ferme ancienne de Savoie"];
-
-     }
-
-     public function load(ObjectManager $manager)
-    {
-    $regionRepo = $manager->getRepository(Region::class);
-
-    foreach (self::regionGenerator() as [$country, $name, $presentation, $ref] ) {
-        $region = new Region();
-        $region->setCountry($country);
-        $region->setName($name);
-        $region->setPresentation($presentation);
-        $manager->persist($region); 
-        $this->addReference(self::$ref, $region);          
-    }
-    $manager->flush();
-
-    foreach (self::roomGenerator() as [$name, $ref, $summary, $description] ) {
-        $room = new Room();
-        $room->setSummary($summary);
-        $room->setRoom($name);
-        $room->setDescription($description);
-        $room->addRegion($this->getReference(self::$ref));     
-        $manager->persist($room);        
-    }
-    $manager->flush();
-
-    
-    }
 }
+
