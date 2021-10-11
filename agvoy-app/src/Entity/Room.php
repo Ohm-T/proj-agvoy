@@ -59,9 +59,26 @@ class Room
      */
     private $regions;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Reservation::class, mappedBy="room", cascade={"persist", "remove"})
+     */
+    private $reservation;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="room")
+     */
+    private $reservations;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UnavailablePeriod::class, mappedBy="room")
+     */
+    private $unavailablePeriods;
+
     public function __construct()
     {
         $this->regions = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+        $this->unavailablePeriods = new ArrayCollection();
     }
     
 
@@ -176,6 +193,83 @@ class Room
     {
         if ($this->regions->removeElement($region)) {
             $region->removeRegion($this);
+        }
+
+        return $this;
+    }
+
+    public function getReservation(): ?Reservation
+    {
+        return $this->reservation;
+    }
+
+    public function setReservation(Reservation $reservation): self
+    {
+        // set the owning side of the relation if necessary
+        if ($reservation->getRoom() !== $this) {
+            $reservation->setRoom($this);
+        }
+
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getRoom() === $this) {
+                $reservation->setRoom(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UnavailablePeriod[]
+     */
+    public function getUnavailablePeriods(): Collection
+    {
+        return $this->unavailablePeriods;
+    }
+
+    public function addUnavailablePeriod(UnavailablePeriod $unavailablePeriod): self
+    {
+        if (!$this->unavailablePeriods->contains($unavailablePeriod)) {
+            $this->unavailablePeriods[] = $unavailablePeriod;
+            $unavailablePeriod->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUnavailablePeriod(UnavailablePeriod $unavailablePeriod): self
+    {
+        if ($this->unavailablePeriods->removeElement($unavailablePeriod)) {
+            // set the owning side to null (unless already changed)
+            if ($unavailablePeriod->getRoom() === $this) {
+                $unavailablePeriod->setRoom(null);
+            }
         }
 
         return $this;
