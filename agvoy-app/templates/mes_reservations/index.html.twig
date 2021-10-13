@@ -9,12 +9,30 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/slbc/CSC4101/proj-agvoy/agvoy-app/src/Controller/MesReservationsController.php'|file_link(0) }}">src/Controller/MesReservationsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/slbc/CSC4101/proj-agvoy/agvoy-app/templates/mes_reservations/index.html.twig'|file_link(0) }}">templates/mes_reservations/index.html.twig</a></code></li>
-    </ul>
+    <h1>Mes réservations : ✅</h1>
 </div>
-{% endblock %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Client Id</th>
+            <th>Room Id</th>
+            <th>Paid ?</th>
+            <th>Début</th>
+            <th>Fin</th>
+        </tr>
+    </thead>
+    <tbody>
+  	{% for reservation in reservations %}
+  	<tr>
+  	<td>{{ reservation.client.id }}</td>
+  	<td>{{ reservation.room.id }}</td>
+        <td>{{ reservation.paid }}</td>
+  	<td>{{ reservation.datedeb ? reservation.datedeb|date('Y-m-d') : '' }}</td>
+  	<td>{{ reservation.datefin ? reservation.datefin|date('Y-m-d') : '' }}</td>
+  	</tr>
+  	{% endfor %} {# reservations #}
+    </tbody>
+</table>
+
+{% endblock %} {# body #}
