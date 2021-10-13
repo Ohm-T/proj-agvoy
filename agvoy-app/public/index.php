@@ -35,3 +35,5 @@ $response->send();
 $kernel->terminate($request, $response);
 
 error_log('fin '. $request->getRequestUri());
+
+
