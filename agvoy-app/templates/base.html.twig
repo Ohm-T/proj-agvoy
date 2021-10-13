@@ -16,7 +16,11 @@
         <script src="{{ asset('js/scripts.js') }}"></script>
         {% endblock %} {# javascripts #}
     </head>
+
     <body>
-        {% block body %}{% endblock %}
+        {{include('navbar.html.twig')}}
+
+    {% block body %}  {% endblock %}
+
     </body>
 </html>
