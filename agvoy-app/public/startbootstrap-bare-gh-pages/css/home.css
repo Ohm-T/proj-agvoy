@@ -1,0 +1,63 @@
+*
+{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pacifico', sans-serif;
+}
+
+bodyy
+{
+    min-height: 100vh;
+    background: linear-gradient(180deg, #606c38,#bc6c25);
+}
+headerr
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 100px;;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+headerr .Couette
+{
+    color: bisque;
+    font-weight: 300;
+    text-decoration: none;
+    font-size: 4em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+headerr ul
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+headerr ul li
+{
+    list-style: none;
+    margin-left: 20px;
+}
+
+headerr ul li a
+{
+    text-decoration: none;
+    padding: 6px 20px;
+    color:burlywood;
+    background: rgb(63, 94, 22);
+    border-radius: 20px;
+}
+
+headerr ul li a:hover,
+headerr ul li a.active
+{
+    text-decoration: none;
+    background: rgb(167, 114, 50);
+    color:rgb(117, 192, 19);
+}
