@@ -91,4 +91,19 @@ class RoomController extends AbstractController
 
         return $this->redirectToRoute('room_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    /**
+     * @Route("/ara", name="room_region", methods={"GET"})
+     */
+    public function region_ara(): Response
+    {
+     
+        $bdd = new PDO('mysql:host=localhost;dbname=test', 'root', '');
+        $reponse = $bdd->query('SELECT * FROM room WHERE region=Auvergne');
+        while ($donnees = $reponse->fetch()){
+            echo $donnees['name'];
+        }
+        $reponse->closeCursor(); // Termine le traitement de la requête
+    }
 }

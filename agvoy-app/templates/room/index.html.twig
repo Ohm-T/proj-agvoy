@@ -5,41 +5,36 @@
 {% block body %}
 
     <div class="container px-4 py-5" id="custom-cards">
-        <h2 class="pb-2 border-bottom">Custom cards</h2>
+        <h2 class="pb-2 border-bottom">Chambres disponibles</h2>
 
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-        <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
-            <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Short title, long jacket</h2>
-                <ul class="d-flex list-unstyled mt-auto">
-                <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                </li>
-                <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                    <small>Earth</small>
-                </li>
-                <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
-                    <small>3d</small>
-                </li>
-                </ul>
-            </div>
-            </div>
-        </div>
+
+        {% for room in rooms %}
 
         <div class="col">
             <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-2.jpg');">
             <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Much longer title that wraps to multiple lines</h2>
+
+                
+		    <ul>
+		        <li>Room Id : {{ room.id }}</li>
+		        <li>Summary : {{ room.summary }}</li>
+		        <li>Capacity : {{ room.capacity }}</li>
+		        <li>Superficy : {{ room.superficy }}</li>
+		        <li>Price : {{ room.price }}</li>
+		        <li>Adress : {{ room.address }}</li>
+		        <li><a href="{{ path('room_show', {'id': room.id}) }}">show</a></li>
+		        <li><a href="{{ path('room_edit', {'id': room.id}) }}">edit</a></li>
+		    </ul>
+                
+
                 <ul class="d-flex list-unstyled mt-auto">
                 <li class="me-auto">
                     <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
                 </li>
                 <li class="d-flex align-items-center me-3">
                     <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                    <small>Pakistan</small>
+                    <small>France</small>
                 </li>
                 <li class="d-flex align-items-center">
                     <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
@@ -49,67 +44,15 @@
             </div>
             </div>
         </div>
+        
+        {% endfor %}
 
-        <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
-            <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Another longer title belongs here</h2>
-                <ul class="d-flex list-unstyled mt-auto">
-                <li class="me-auto">
-                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                </li>
-                <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                    <small>California</small>
-                </li>
-                <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
-                    <small>5d</small>
-                </li>
-                </ul>
-            </div>
-            </div>
-        </div>
         </div>
     </div>
+    
+    <div class="container px-4 py-5" id="custom-cards">
+        <h2 class="pb-2 border-bottom"><a href="{{ path('room_new') }}">Create new</a></h2>
+    </div>
 
-    <h1>Room index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Summary</th>
-                <th>Description</th>
-                <th>Capacity</th>
-                <th>Superficy</th>
-                <th>Price</th>
-                <th>Address</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for room in rooms %}
-            <tr>
-                <td>{{ room.id }}</td>
-                <td>{{ room.summary }}</td>
-                <td>{{ room.description }}</td>
-                <td>{{ room.capacity }}</td>
-                <td>{{ room.superficy }}</td>
-                <td>{{ room.price }}</td>
-                <td>{{ room.address }}</td>
-                <td>
-                    <a href="{{ path('room_show', {'id': room.id}) }}">show</a>
-                    <a href="{{ path('room_edit', {'id': room.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('room_new') }}">Create new</a>
+    
 {% endblock %}
